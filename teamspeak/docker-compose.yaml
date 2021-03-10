@@ -3,6 +3,8 @@ services:
   teamspeak:
     image: teamspeak
     restart: unless-stopped
+    volumes:
+      - /mnt/NasAlex_nfs/docker/data/ts3/app:/var/ts3server/
     ports:
       - 9987:9987/udp
       - 10011:10011
@@ -16,9 +18,12 @@ services:
       TS3SERVER_DB_NAME: teamspeak
       TS3SERVER_DB_WAITUNTILREADY: 30
       TS3SERVER_LICENSE: accept
-  db:
+  teamspeak-db:
     image: mariadb
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: example
       MYSQL_DATABASE: teamspeak
+    volumes:
+      - /mnt/NasAlex_nfs/docker/data/ts3/db:/var/ts3server/
+
